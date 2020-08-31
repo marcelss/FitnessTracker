@@ -18,7 +18,7 @@
             "main": "src/main.ts",
             "polyfills": "src/polyfills.ts",
             "tsConfig": "tsconfig.app.json",
-            "aot": false,
+            "aot": true,
             "assets": [
               "src/favicon.ico",
               "src/assets"
@@ -41,7 +41,6 @@
               "sourceMap": false,
               "extractCss": true,
               "namedChunks": false,
-              "aot": true,
               "extractLicenses": true,
               "vendorChunk": false,
               "buildOptimizer": true,
@@ -120,6 +119,10 @@
           }
         }
       }
-    }},
-  "defaultProject": "fitness-tracker"
+    }
+  },
+  "defaultProject": "fitness-tracker",
+  "cli": {
+    "analytics": "9b67c6f2-363c-4660-a0b8-c8eae3646460"
+  }
 }
