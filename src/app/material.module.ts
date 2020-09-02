@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
-import { MatFormFieldModule} from '@angular/material/form-field';
+import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatSidenavModule } from '@angular/material/sidenav';
@@ -11,12 +11,16 @@ import { MatListModule } from '@angular/material/list';
 import { MatTabsModule } from '@angular/material/tabs';
 import { MatCardModule } from '@angular/material/card';
 import { MatSelectModule } from '@angular/material/select';
+import { MatNativeDateModule } from '@angular/material/core';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
+import { MatDialogModule } from '@angular/material/dialog';
 
 @NgModule({
   imports: [
     MatButtonModule,
     MatIconModule,
     MatInputModule,
+    MatNativeDateModule,
     MatDatepickerModule,
     MatCheckboxModule,
     MatSidenavModule,
@@ -25,11 +29,14 @@ import { MatSelectModule } from '@angular/material/select';
     MatTabsModule,
     MatCardModule,
     MatFormFieldModule,
-    MatSelectModule],
+    MatSelectModule,
+    MatProgressSpinnerModule,
+    MatDialogModule],
   exports: [
     MatButtonModule,
     MatIconModule,
     MatInputModule,
+    MatNativeDateModule,
     MatDatepickerModule,
     MatCheckboxModule,
     MatSidenavModule,
@@ -38,6 +45,8 @@ import { MatSelectModule } from '@angular/material/select';
     MatTabsModule,
     MatCardModule,
     MatFormFieldModule,
-    MatSelectModule]
+    MatSelectModule,
+    MatProgressSpinnerModule,
+    MatDialogModule]
 })
 export class MaterialModule { }

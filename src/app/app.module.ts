@@ -19,6 +19,11 @@ import { WelcomeComponent } from './welcome/welcome.component';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { HeaderComponent } from './navigation/header/header.component';
 import { SidenavListComponent } from './navigation/sidenav-list/sidenav-list.component';
+import { ConfirmationDialogComponent } from './dialogs/confirmation-dialog/confirmation-dialog.component';
+import { StopTrainingComponent } from './training/current-training/stop-training-component';
+import { AuthService } from './auth/auth.service';
+import { SizeDetectorComponent } from './size-detector/size-detector.component';
+import { ResizeService } from './size-detector/resize.service';
 
 @NgModule({
   declarations: [
@@ -31,7 +36,10 @@ import { SidenavListComponent } from './navigation/sidenav-list/sidenav-list.com
     PastTrainingsComponent,
     WelcomeComponent,
     HeaderComponent,
-    SidenavListComponent
+    SidenavListComponent,
+    ConfirmationDialogComponent,
+    StopTrainingComponent,
+    SizeDetectorComponent
   ],
   imports: [
     BrowserModule,
@@ -44,7 +52,8 @@ import { SidenavListComponent } from './navigation/sidenav-list/sidenav-list.com
     FormsModule,
     ReactiveFormsModule
   ],
-  providers: [],
-  bootstrap: [AppComponent]
+  providers: [AuthService, ResizeService],
+  bootstrap: [AppComponent],
+  entryComponents : [StopTrainingComponent]
 })
 export class AppModule { }

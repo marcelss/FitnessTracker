@@ -1,9 +1,10 @@
 <mat-sidenav-container>
-  <mat-sidenav #sidenav role="navigation" mode="over">
-    <app-sidenav-list (sideNavClose)="sidenav.close()"></app-sidenav-list>
+  <mat-sidenav #sidenav role="navigation" [mode]="isMobile ? 'over':'side'">
+    <app-sidenav-list (sideNavClose)="isMobile && sidenav.close()"></app-sidenav-list>
   </mat-sidenav>
   <mat-sidenav-content>
     <app-header (sideNavToggle)="sidenav.toggle()"></app-header>
     <router-outlet></router-outlet>
+    <app-size-detector></app-size-detector>
   </mat-sidenav-content>
 </mat-sidenav-container>

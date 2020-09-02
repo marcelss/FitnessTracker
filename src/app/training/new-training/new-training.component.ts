@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, EventEmitter, Output } from '@angular/core';
 export interface Food {
   value: string;
   viewValue: string;
@@ -9,16 +9,21 @@ export interface Food {
   styleUrls: ['./new-training.component.css']
 })
 export class NewTrainingComponent implements OnInit {
+  @Output() trainingStart = new EventEmitter<void>();
   foods: Food[] = [
-    {value: 'crunches', viewValue: 'Crunches'},
-    {value: 'touch-toes', viewValue: 'Touch Toes'},
-    {value: 'side-lunges', viewValue: 'Side Lunges'},
-    {value: 'burpees', viewValue: 'Burpess'}
+    { value: 'crunches', viewValue: 'Crunches' },
+    { value: 'touch-toes', viewValue: 'Touch Toes' },
+    { value: 'side-lunges', viewValue: 'Side Lunges' },
+    { value: 'burpees', viewValue: 'Burpess' }
   ];
 
   constructor() { }
 
   ngOnInit() {
 
+  }
+
+  onStartTraining() {
+    this.trainingStart.emit();
   }
 }
