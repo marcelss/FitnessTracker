@@ -44,7 +44,7 @@ export class AppComponent implements AfterViewInit, OnDestroy {
           this.sidenav.close();
         }
       }
-      console.log('Size: ' + this.size);
+      console.log('screen-size: ' + this.size);
     });
   }
 

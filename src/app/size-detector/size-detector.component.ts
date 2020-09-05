@@ -1,4 +1,4 @@
-import { Component, ViewChild, ElementRef, AfterViewInit, HostListener } from '@angular/core';
+import { Component, ViewChild, ElementRef, AfterViewInit, HostListener, Input } from '@angular/core';
 import { ResizeService } from './resize.service';
 import { SCREEN_SIZE } from './screen-size.enum';
 
@@ -8,6 +8,7 @@ import { SCREEN_SIZE } from './screen-size.enum';
   styleUrls: ['./size-detector.component.css']
 })
 export class SizeDetectorComponent implements AfterViewInit {
+  @Input() showSize: boolean;
   prefix = 'is-';
   sizes = [
     {

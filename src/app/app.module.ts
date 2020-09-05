@@ -24,6 +24,8 @@ import { StopTrainingComponent } from './training/current-training/stop-training
 import { AuthService } from './auth/auth.service';
 import { SizeDetectorComponent } from './size-detector/size-detector.component';
 import { ResizeService } from './size-detector/resize.service';
+import { TrainingService } from './training/training.service';
+import { NgpSortModule } from 'ngp-sort-pipe';
 
 @NgModule({
   declarations: [
@@ -50,9 +52,10 @@ import { ResizeService } from './size-detector/resize.service';
     HttpClientModule,
     FlexLayoutModule,
     FormsModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    NgpSortModule
   ],
-  providers: [AuthService, ResizeService],
+  providers: [AuthService, ResizeService, TrainingService],
   bootstrap: [AppComponent],
   entryComponents : [StopTrainingComponent]
 })

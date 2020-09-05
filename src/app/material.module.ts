@@ -14,6 +14,8 @@ import { MatSelectModule } from '@angular/material/select';
 import { MatNativeDateModule } from '@angular/material/core';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { MatDialogModule } from '@angular/material/dialog';
+import { MatTableModule } from '@angular/material/table';
+import { MatSortModule } from '@angular/material/sort';
 
 @NgModule({
   imports: [
@@ -31,7 +33,9 @@ import { MatDialogModule } from '@angular/material/dialog';
     MatFormFieldModule,
     MatSelectModule,
     MatProgressSpinnerModule,
-    MatDialogModule],
+    MatDialogModule,
+    MatTableModule,
+    MatSortModule],
   exports: [
     MatButtonModule,
     MatIconModule,
@@ -47,6 +51,8 @@ import { MatDialogModule } from '@angular/material/dialog';
     MatFormFieldModule,
     MatSelectModule,
     MatProgressSpinnerModule,
-    MatDialogModule]
+    MatDialogModule,
+    MatTableModule,
+    MatSortModule]
 })
 export class MaterialModule { }
