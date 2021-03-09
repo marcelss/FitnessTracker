@@ -3,17 +3,19 @@ import { MediaMatcher } from '@angular/cdk/layout';
 import { MatSidenav } from '@angular/material/sidenav';
 import { SCREEN_SIZE } from './size-detector/screen-size.enum';
 import { ResizeService } from './size-detector/resize.service';
+import { AuthService } from './auth/auth.service';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.css']
 })
-export class AppComponent implements AfterViewInit, OnDestroy {
+export class AppComponent implements OnInit, AfterViewInit, OnDestroy {
   @ViewChild('sidenav') sidenav: MatSidenav;
   mobileQuery: MediaQueryList;
   isMobile = false;
-
+  screenSizeSubscription: Subscription;
   size: SCREEN_SIZE;
 
   /*constructor(changeDetectorRef: ChangeDetectorRef, media: MediaMatcher) {
@@ -29,9 +31,9 @@ export class AppComponent implements AfterViewInit, OnDestroy {
     });
   }*/
 
-  constructor(private cd: ChangeDetectorRef, private resizeSvc: ResizeService) {
+  constructor(private cd: ChangeDetectorRef, private resizeSvc: ResizeService, private authService: AuthService) {
     // subscribe to the size change stream
-    this.resizeSvc.onResize$.subscribe(x => {
+    this.screenSizeSubscription = this.resizeSvc.onResize$.subscribe(x => {
       this.size = x;
       if (x > 0) {
         this.isMobile = false;
@@ -48,6 +50,10 @@ export class AppComponent implements AfterViewInit, OnDestroy {
     });
   }
 
+  ngOnInit(): void {
+    this.authService.initAuthListener();
+  }
+
   ngAfterViewInit(): void {
     if (this.isMobile) {
       this.sidenav.close();
@@ -58,6 +64,9 @@ export class AppComponent implements AfterViewInit, OnDestroy {
   }
 
   ngOnDestroy(): void {
+    if (this.screenSizeSubscription) {
+      this.screenSizeSubscription.unsubscribe();
+    }
   }
 
 }
