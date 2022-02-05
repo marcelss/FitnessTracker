@@ -1,4 +1,4 @@
-import { Component, ChangeDetectorRef, OnDestroy, ViewChild, OnInit, AfterViewInit, AfterContentInit, AfterViewChecked } from '@angular/core';
+import { Component, ChangeDetectorRef, OnDestroy, ViewChild, OnInit } from '@angular/core';
 import { MediaMatcher } from '@angular/cdk/layout';
 import { MatSidenav } from '@angular/material/sidenav';
 import { ScreenSizeDetectorService } from './screen-size-detector/screen-size-detector.service';
