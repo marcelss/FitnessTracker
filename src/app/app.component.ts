@@ -1,8 +1,8 @@
 import { Component, ChangeDetectorRef, OnDestroy, ViewChild, OnInit, AfterViewInit, AfterContentInit, AfterViewChecked } from '@angular/core';
 import { MediaMatcher } from '@angular/cdk/layout';
 import { MatSidenav } from '@angular/material/sidenav';
-import { SCREEN_SIZE } from './size-detector/screen-size.enum';
-import { ResizeService } from './size-detector/resize.service';
+import { ScreenSizeDetectorService } from './screen-size-detector/screen-size-detector.service';
+import { SCREEN_SIZE } from './screen-size-detector/screen-size-detector.enum';
 import { AuthService } from './auth/auth.service';
 import { Subscription } from 'rxjs';
 
@@ -11,62 +11,52 @@ import { Subscription } from 'rxjs';
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.css']
 })
-export class AppComponent implements OnInit, AfterViewInit, OnDestroy {
+export class AppComponent implements OnInit, OnDestroy {
   @ViewChild('sidenav') sidenav: MatSidenav;
-  mobileQuery: MediaQueryList;
+  mobileQuery: MediaQueryList;    
   isMobile = false;
   screenSizeSubscription: Subscription;
   size: SCREEN_SIZE;
+  isAuth = false;
+  authSubscription: Subscription;
 
-  /*constructor(changeDetectorRef: ChangeDetectorRef, media: MediaMatcher) {
-    this.mobileQuery = media.matchMedia('(max-width: 600px)');
-    this.mobileQuery.addEventListener('change', (e) => {
-      if (e.matches) {
-        console.log('This is a narrow screen — less than 600px wide.');
-        this.sidenav.close();
-      } else {
-        console.log('This is a wide screen — more than 600px wide.');
-        this.sidenav.open();
-      }
-    });
-  }*/
-
-  constructor(private cd: ChangeDetectorRef, private resizeSvc: ResizeService, private authService: AuthService) {
-    // subscribe to the size change stream
-    this.screenSizeSubscription = this.resizeSvc.onResize$.subscribe(x => {
-      this.size = x;
-      if (x > 0) {
-        this.isMobile = false;
-        if (this.sidenav !== undefined) {
-          this.sidenav.open();
-        }
-      } else {
-        this.isMobile = true;
-        if (this.sidenav !== undefined) {
-          this.sidenav.close();
-        }
-      }
-      console.log('screen-size: ' + this.size);
-    });
+  constructor(
+    private cd: ChangeDetectorRef, 
+    private resizeSvc: ScreenSizeDetectorService, 
+    private authService: AuthService) {
   }
 
   ngOnInit(): void {
     this.authService.initAuthListener();
-  }
 
-  ngAfterViewInit(): void {
-    if (this.isMobile) {
-      this.sidenav.close();
-    } else {
-      this.sidenav.open();
-    }
-    this.cd.detectChanges();
+    // subscribe to the size change stream
+    this.screenSizeSubscription = this.resizeSvc.onResize$.subscribe(x => {
+      this.size = x;
+      this.isMobile = this.size > 0 ? false : true;
+
+      if (this.isAuth)
+        this.sidenav.close();
+
+      this.cd.detectChanges();
+    });
+
+    this.authSubscription = this.authService.authChange.subscribe(authStatus => {
+      this.isAuth = authStatus;
+
+      if (this.isAuth)
+        this.sidenav.close();
+
+      this.cd.detectChanges();
+    });
+
   }
 
   ngOnDestroy(): void {
-    if (this.screenSizeSubscription) {
+    if (this.screenSizeSubscription)
       this.screenSizeSubscription.unsubscribe();
-    }
+
+    if (this.authSubscription)
+      this.authSubscription.unsubscribe();
   }
 
 }

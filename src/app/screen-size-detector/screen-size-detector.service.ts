@@ -1,10 +1,10 @@
 import { Injectable } from '@angular/core';
 import { Observable, Subject } from 'rxjs';
 import { distinctUntilChanged } from 'rxjs/operators';
-import { SCREEN_SIZE } from './screen-size.enum';
+import { SCREEN_SIZE } from './screen-size-detector.enum';
 
 @Injectable()
-export class ResizeService {
+export class ScreenSizeDetectorService {
 
   get onResize$(): Observable<SCREEN_SIZE> {
     return this.resizeSubject.asObservable().pipe(distinctUntilChanged());

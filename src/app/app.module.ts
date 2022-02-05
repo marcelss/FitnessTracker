@@ -17,8 +17,8 @@ import { HeaderComponent } from './navigation/header/header.component';
 import { SidenavListComponent } from './navigation/sidenav-list/sidenav-list.component';
 import { ConfirmationDialogComponent } from './dialogs/confirmation-dialog/confirmation-dialog.component';
 import { AuthService } from './auth/auth.service';
-import { SizeDetectorComponent } from './size-detector/size-detector.component';
-import { ResizeService } from './size-detector/resize.service';
+import { ScreenSizeDetectorComponent } from './screen-size-detector/screen-size-detector.component';
+import { ScreenSizeDetectorService } from './screen-size-detector/screen-size-detector.service';
 import { TrainingService } from './training/training.service';
 import { AngularFirestoreModule} from 'angularfire2/firestore';
 import { AngularFireModule } from 'angularfire2';
@@ -32,7 +32,7 @@ import { UIService } from './shared/ui.service';
     HeaderComponent,
     SidenavListComponent,
     ConfirmationDialogComponent,
-    SizeDetectorComponent
+    ScreenSizeDetectorComponent
   ],
   imports: [
     BrowserModule,
@@ -46,7 +46,7 @@ import { UIService } from './shared/ui.service';
     AngularFirestoreModule,
     AngularFireModule.initializeApp(environment.firebase)
   ],
-  providers: [AuthService, ResizeService, TrainingService, UIService],
+  providers: [AuthService, ScreenSizeDetectorService, TrainingService, UIService],
   bootstrap: [AppComponent],
 
 })

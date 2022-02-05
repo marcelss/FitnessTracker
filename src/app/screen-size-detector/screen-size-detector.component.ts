@@ -1,13 +1,13 @@
 import { Component, ViewChild, ElementRef, AfterViewInit, HostListener, Input } from '@angular/core';
-import { ResizeService } from './resize.service';
-import { SCREEN_SIZE } from './screen-size.enum';
+import { SCREEN_SIZE } from './screen-size-detector.enum';
+import { ScreenSizeDetectorService } from './screen-size-detector.service';
 
 @Component({
-  selector: 'app-size-detector',
-  templateUrl: './size-detector.component.html',
-  styleUrls: ['./size-detector.component.css']
+  selector: 'app-screen-size-detector',
+  templateUrl: './screen-size-detector.component.html',
+  styleUrls: ['./screen-size-detector.component.css']
 })
-export class SizeDetectorComponent implements AfterViewInit {
+export class ScreenSizeDetectorComponent implements AfterViewInit {
   @Input() showSize: boolean;
   prefix = 'is-';
   sizes = [
@@ -33,7 +33,7 @@ export class SizeDetectorComponent implements AfterViewInit {
     },
   ];
 
-  constructor(private elementRef: ElementRef, private resizeSvc: ResizeService) { }
+  constructor(private elementRef: ElementRef, private resizeSvc: ScreenSizeDetectorService) { }
 
   @HostListener('window:resize', [])
   private onResize() {

@@ -4,7 +4,7 @@
   </mat-sidenav>
   <mat-sidenav-content>
     <app-header (sideNavToggle)="sidenav.toggle()"></app-header>
-    <router-outlet></router-outlet>
-    <app-size-detector [showSize]="false"></app-size-detector>
+    <router-outlet></router-outlet>    
+    <app-screen-size-detector [showSize]="false"></app-screen-size-detector>
   </mat-sidenav-content>
 </mat-sidenav-container>
