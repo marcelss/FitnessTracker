@@ -1,8 +1,6 @@
 import { Component, ChangeDetectorRef, OnDestroy, ViewChild, OnInit } from '@angular/core';
-import { MediaMatcher } from '@angular/cdk/layout';
 import { MatSidenav } from '@angular/material/sidenav';
 import { ScreenSizeDetectorService } from './screen-size-detector/screen-size-detector.service';
-import { SCREEN_SIZE } from './screen-size-detector/screen-size-detector.enum';
 import { AuthService } from './auth/auth.service';
 import { Subscription } from 'rxjs';
 
@@ -13,15 +11,10 @@ import { Subscription } from 'rxjs';
 })
 export class AppComponent implements OnInit, OnDestroy {
   @ViewChild('sidenav') sidenav: MatSidenav;
-  mobileQuery: MediaQueryList;    
-  isMobile = false;
-  screenSizeSubscription: Subscription;
-  size: SCREEN_SIZE;
-  isAuth = false;
-  authSubscription: Subscription;
+  mobileQuery: MediaQueryList;      
+  screenSizeSubscription: Subscription;      
 
-  constructor(
-    private cd: ChangeDetectorRef, 
+  constructor(    
     private resizeSvc: ScreenSizeDetectorService, 
     private authService: AuthService) {
   }
@@ -30,33 +23,14 @@ export class AppComponent implements OnInit, OnDestroy {
     this.authService.initAuthListener();
 
     // subscribe to the size change stream
-    this.screenSizeSubscription = this.resizeSvc.onResize$.subscribe(x => {
-      this.size = x;
-      this.isMobile = this.size > 0 ? false : true;
-
-      if (this.isAuth)
-        this.sidenav.close();
-
-      this.cd.detectChanges();
+    this.screenSizeSubscription = this.resizeSvc.onResize$.subscribe(size => {                  
+        this.sidenav.close();      
     });
-
-    this.authSubscription = this.authService.authChange.subscribe(authStatus => {
-      this.isAuth = authStatus;
-
-      if (this.isAuth)
-        this.sidenav.close();
-
-      this.cd.detectChanges();
-    });
-
   }
 
   ngOnDestroy(): void {
     if (this.screenSizeSubscription)
       this.screenSizeSubscription.unsubscribe();
-
-    if (this.authSubscription)
-      this.authSubscription.unsubscribe();
   }
 
 }
