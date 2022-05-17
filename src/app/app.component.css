@@ -1,10 +1,24 @@
 mat-sidenav-container,
 mat-sidenav-content,
-mat-side-nav {
-  height: 100%;
+mat-sidenav {
+    height: 100vh;
+    /*Component content fills entire verticle space*/
 }
 
 mat-sidenav {
-  width: 250px;
+    width: 70%;
+    /*Width sidenav takes up when open*/
 }
 
+.container {
+    height: 100vh;
+    /* Component content fills entire verticle space*/
+    overflow: auto;
+    /* Keeps header from scrolling away*/
+    /*padding: 10px; /* Component conent padding around edges*/
+    /*margin-bottom: 5px; /*Matches height of footer so can see all content when scrolling to bottom*/
+}
+
+.main-container {
+    overflow: hidden;
+}

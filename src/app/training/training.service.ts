@@ -2,11 +2,12 @@ import { Subject } from 'rxjs';
 import { Exercise } from './exercise.model';
 import { AngularFirestore } from 'angularfire2/firestore';
 import { Observable } from 'rxjs';
-import { map } from 'rxjs/internal/operators/map';
+import { map } from 'rxjs/operators';
 import { Injectable } from '@angular/core';
 import { firestore } from 'firebase/app';
 import Timestamp = firestore.Timestamp;
 import { Subscription } from 'rxjs';
+import { UIService } from '../shared/ui.service';
 
 @Injectable()
 export class TrainingService {
@@ -16,12 +17,12 @@ export class TrainingService {
 
   private availableExercises: Exercise[] = [];
   private runningExercise: Exercise;
-  // private finishedExercises: Exercise[] = [];
   private fbSubs: Subscription[] = [];
 
-  constructor(private db: AngularFirestore) { }
+  constructor(private db: AngularFirestore, private uiService: UIService) { }
 
   fetchAvailableExercises() {
+    this.uiService.loadingStateChanged.next(true);
     this.fbSubs.push(this.db
       .collection('availableExercises')
       .snapshotChanges()
@@ -37,8 +38,11 @@ export class TrainingService {
           });
         }))
       .subscribe((exercises: Exercise[]) => {
-        this.availableExercises = exercises;
-        this.exercisesChanged.next([...this.availableExercises]);
+          console.log("Delayed for 3 second.");
+          this.uiService.loadingStateChanged.next(false);
+
+          this.availableExercises = exercises;
+          this.exercisesChanged.next([...this.availableExercises]);
       }));
   }
 
@@ -58,13 +62,12 @@ export class TrainingService {
         })
       )
       .subscribe((exercises: Exercise[]) => {
-        console.log(exercises);
         this.finishedExercisesChanged.next(exercises);
       }));
   }
 
   startExercise(selectedId: string) {
-    this.db.doc('availableExercises/' + selectedId).update({ lastSelected: new Date() });
+    this.db.doc(`availableExercises/${selectedId}`).update({ lastSelected: new Date() });
     this.runningExercise = this.availableExercises.find(
       x => x.id === selectedId
     );
@@ -76,7 +79,11 @@ export class TrainingService {
   }
 
   completeExercise() {
-    this.addDataToDatabase({ ...this.runningExercise, date: new Date(), state: 'completed' });
+    this.addDataToDatabase({
+      ...this.runningExercise,
+      date: new Date(),
+      state: 'completed'
+    });
     this.runningExercise = null;
     this.exerciseChanged.next(null);
   }
@@ -93,7 +100,7 @@ export class TrainingService {
     this.exerciseChanged.next(null);
   }
 
-  cancelSubscriptions(){
+  cancelSubscriptions() {
     this.fbSubs.forEach(sub => sub.unsubscribe());
   }
 

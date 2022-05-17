@@ -1,18 +1,16 @@
-<section class="login-form">
-  <form [formGroup]="loginForm" fxLayout="column" fxLayoutGap="10px" fxLayoutAlign="center center"
-    (ngSubmit)="onSubmit()">
-    <mat-form-field>
-      <input type="email" matInput placeholder="Email" autocomplete="off" ngModel name="email"
-        formControlName="email" />
-      <mat-hint>Insira um email válido!</mat-hint>
-      <mat-error>Email inválido ou não inserido!</mat-error>
-    </mat-form-field>
-    <mat-form-field>
-      <input type="password" matInput placeholder="Senha" ngModel formControlName="password" name="password" />
-      <mat-hint>Insira sua senha.</mat-hint>
-      <mat-error>Senha invalida ou não inserida!</mat-error>
-    </mat-form-field>
-    <button *ngIf="!isLoading" type="submit" mat-raised-button color="primary" [disabled]="loginForm.invalid">Submit</button>
-    <mat-spinner *ngIf="isLoading"></mat-spinner>
-  </form>
+<section class="login-form" fxLayoutAlign="center center" fxFlexFill>
+    <form [formGroup]="loginForm" fxLayout="column" fxLayoutGap="10px" fxLayoutAlign="center stretch" (ngSubmit)="onSubmit()">
+        <mat-form-field>
+            <input type="email" matInput placeholder="Email" autocomplete="off" ngModel name="email" formControlName="email" />
+            <mat-hint>Insira um email válido!</mat-hint>
+            <mat-error>Email inválido ou não inserido!</mat-error>
+        </mat-form-field>
+        <mat-form-field>
+            <input type="password" matInput placeholder="Senha" ngModel formControlName="password" name="password" />
+            <mat-hint>Insira sua senha.</mat-hint>
+            <mat-error>Senha invalida ou não inserida!</mat-error>
+        </mat-form-field>
+        <button *ngIf="!isLoading" type="submit" mat-raised-button color="primary" [disabled]="loginForm.invalid">Submit</button>
+        <mat-spinner fxLayoutAlign="center center" *ngIf="isLoading"></mat-spinner>
+    </form>
 </section>

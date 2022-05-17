@@ -1,10 +1,16 @@
-<mat-sidenav-container>
-  <mat-sidenav #sidenav role="navigation" [mode]="'push'">
-    <app-sidenav-list (sideNavClose)="sidenav.close()"></app-sidenav-list>
-  </mat-sidenav>
-  <mat-sidenav-content>
-    <app-header (sideNavToggle)="sidenav.toggle()"></app-header>
-    <router-outlet></router-outlet>    
-    <app-screen-size-detector [showSize]="false"></app-screen-size-detector>
-  </mat-sidenav-content>
-</mat-sidenav-container>
+<div fxFlex class="main-container">
+    <div fxFlex="100" fxLayoutAlign="center center" fxFlexFill>
+        <mat-sidenav-container fxFlex="100" fxFlexFill>
+            <mat-sidenav #sidenav role="navigation" [mode]="'push'" fxHide.gt-xs>
+                <app-sidenav-list (sideNavClose)="sidenav.close()"></app-sidenav-list>
+            </mat-sidenav>
+            <mat-sidenav-content fxLayout="column">
+                <app-header (sideNavToggle)="sidenav.toggle()"></app-header>
+                <main class="container">
+                    <router-outlet></router-outlet>
+                </main>
+                <app-screen-size-detector [showSize]="false"></app-screen-size-detector>
+            </mat-sidenav-content>
+        </mat-sidenav-container>
+    </div>
+</div>

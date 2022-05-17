@@ -47,7 +47,6 @@ export class AuthService {
       authData.password
     ).then(result => {
       this.uiService.loadingStateChanged.next(false);
-      console.log(result);
     })
       .catch(error => {
         this.uiService.loadingStateChanged.next(false);
@@ -74,9 +73,7 @@ export class AuthService {
   }
 
   logout() {
-    this.afAuth.auth.signOut().then(x => {
-
-    });
+    this.afAuth.auth.signOut();
   }
 
   getUser() {
