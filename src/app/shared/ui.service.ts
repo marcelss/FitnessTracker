@@ -7,11 +7,11 @@ export class UIService {
   loadingStateChanged = new Subject<boolean>();
 
   constructor(private snackbar: MatSnackBar) { }
-  showSnackbar(message: string, action: string, duration: number = 3000) {
+  showSnackbar(message: string, action: string = null, duration: number = 3000) {
     this.snackbar.open(message, action, {
       duration: duration,
       horizontalPosition: 'center',
-      verticalPosition: 'top',
+      verticalPosition: 'bottom',
     });
   }
 }

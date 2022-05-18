@@ -15,7 +15,7 @@ export interface Food {
   styleUrls: ['./new-training.component.css']
 })
 export class NewTrainingComponent implements OnInit, OnDestroy {
-  exercises: Exercise[];
+  exercises: Exercise[] = [];
   isLoading = true;
   private exerciseSubscription: Subscription;
   private loadingSubscription: Subscription;
@@ -40,7 +40,6 @@ export class NewTrainingComponent implements OnInit, OnDestroy {
       this.exerciseSubscription.unsubscribe();
     
     if (this.loadingSubscription)
-      this.loadingSubscription.unsubscribe();
-    
+      this.loadingSubscription.unsubscribe();    
   }
 }

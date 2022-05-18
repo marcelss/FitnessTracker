@@ -10,7 +10,7 @@ const routes: Routes = [
     path: 'training',
     loadChildren: () => import('./training/training.module')
     .then(m => m.TrainingModule),
-    canLoad: [AuthGuard] //canLoad verifica se temos acesso mesmo antes de carregar o módulo
+    canLoad: [AuthGuard]
   }
 ];
 

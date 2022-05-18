@@ -38,11 +38,13 @@ export class TrainingService {
           });
         }))
       .subscribe((exercises: Exercise[]) => {
-          console.log("Delayed for 3 second.");
           this.uiService.loadingStateChanged.next(false);
-
           this.availableExercises = exercises;
           this.exercisesChanged.next([...this.availableExercises]);
+      }, error => {
+        this.uiService.loadingStateChanged.next(false);
+        this.uiService.showSnackbar('Fetching Exercises failed, please try to reload the application');
+        this.exercisesChanged.next([]);
       }));
   }
 

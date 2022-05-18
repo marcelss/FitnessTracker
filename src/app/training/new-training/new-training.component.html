@@ -3,7 +3,7 @@
         <mat-card>
             <mat-card-title fxLayoutAlign="center">Time to start a workout!</mat-card-title>
             <mat-card-content fxLayoutAlign="center">
-                <mat-form-field *ngIf="!isLoading">
+                <mat-form-field *ngIf="!isLoading && exercises.length > 0">
                     <mat-select placeholder="Choose Exercise" ngModel name="exerciseId" required>
                         <mat-option *ngFor="let exercise of exercises | sortBy:'asc':'name'" [value]="exercise.id">
                             {{exercise.name}}
@@ -12,7 +12,7 @@
                 </mat-form-field>
                 <mat-spinner *ngIf="isLoading"></mat-spinner>
             </mat-card-content>
-            <mat-card-actions fxLayoutAlign="center" *ngIf="!isLoading">
+            <mat-card-actions fxLayoutAlign="center" *ngIf="!isLoading && exercises.length > 0">
                 <button type="submit" mat-button color="primary" [disabled]="f.invalid">Start</button>
             </mat-card-actions>
         </mat-card>
