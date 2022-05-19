@@ -20,10 +20,11 @@ import { AuthService } from './auth/auth.service';
 import { ScreenSizeDetectorComponent } from './screen-size-detector/screen-size-detector.component';
 import { ScreenSizeDetectorService } from './screen-size-detector/screen-size-detector.service';
 import { TrainingService } from './training/training.service';
-import { AngularFirestoreModule} from 'angularfire2/firestore';
-import { AngularFireModule } from 'angularfire2';
+
 import { environment } from '../environments/environment';
 import { UIService } from './shared/ui.service';
+import { AngularFireModule } from '@angular/fire';
+import { AngularFirestoreModule } from '@angular/fire/firestore';
 
 @NgModule({
   declarations: [
@@ -44,7 +45,7 @@ import { UIService } from './shared/ui.service';
     HttpClientModule,
     FlexLayoutModule,
     AngularFirestoreModule,
-    AngularFireModule.initializeApp(environment.firebase)
+    AngularFireModule.initializeApp(environment.firebase),
   ],
   providers: [AuthService, ScreenSizeDetectorService, TrainingService, UIService],
   bootstrap: [AppComponent],

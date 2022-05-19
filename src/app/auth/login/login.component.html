@@ -11,6 +11,6 @@
             <mat-error>Senha invalida ou não inserida!</mat-error>
         </mat-form-field>
         <button *ngIf="!isLoading" type="submit" mat-raised-button color="primary" [disabled]="loginForm.invalid">Submit</button>
-        <mat-spinner fxLayoutAlign="center center" *ngIf="isLoading"></mat-spinner>
     </form>
+    <mat-spinner fxLayoutAlign="center center" *ngIf="isLoading"></mat-spinner>
 </section>

@@ -3,7 +3,7 @@ import { AuthData } from "./auth-data.model";
 import { Subject } from 'rxjs';
 import { Router } from '@angular/router';
 import { Injectable } from '@angular/core';
-import { AngularFireAuth } from 'angularfire2/auth';
+import { AngularFireAuth } from '@angular/fire/auth';
 import { TrainingService } from '../training/training.service';
 import { UIService } from '../shared/ui.service';
 
@@ -42,7 +42,7 @@ export class AuthService {
       email: authData.email,
       userId: Math.round(Math.random() * 10000).toString()
     };
-    this.afAuth.auth.createUserWithEmailAndPassword(
+    this.afAuth.createUserWithEmailAndPassword(
       authData.email,
       authData.password
     ).then(result => {
@@ -56,7 +56,7 @@ export class AuthService {
 
   login(authData: AuthData) {
     this.uiService.loadingStateChanged.next(true);
-    this.afAuth.auth.signInWithEmailAndPassword(
+    this.afAuth.signInWithEmailAndPassword(
       authData.email,
       authData.password,
     ).then(result => {
@@ -73,7 +73,7 @@ export class AuthService {
   }
 
   logout() {
-    this.afAuth.auth.signOut();
+    this.afAuth.signOut();
   }
 
   getUser() {

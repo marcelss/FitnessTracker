@@ -1,11 +1,8 @@
 import { Subject } from 'rxjs';
 import { Exercise } from './exercise.model';
-import { AngularFirestore } from 'angularfire2/firestore';
-import { Observable } from 'rxjs';
+import { AngularFirestore, AngularFirestoreCollection } from '@angular/fire/firestore';
 import { map } from 'rxjs/operators';
 import { Injectable } from '@angular/core';
-import { firestore } from 'firebase/app';
-import Timestamp = firestore.Timestamp;
 import { Subscription } from 'rxjs';
 import { UIService } from '../shared/ui.service';
 
@@ -18,29 +15,30 @@ export class TrainingService {
   private availableExercises: Exercise[] = [];
   private runningExercise: Exercise;
   private fbSubs: Subscription[] = [];
+  private exerciseCollection: AngularFirestoreCollection<Exercise>;
 
-  constructor(private db: AngularFirestore, private uiService: UIService) { }
+  constructor(private db: AngularFirestore, private uiService: UIService) {
+    this.exerciseCollection = this.db.collection<Exercise>('availableExercises');
+  }
 
   fetchAvailableExercises() {
     this.uiService.loadingStateChanged.next(true);
-    this.fbSubs.push(this.db
-      .collection('availableExercises')
+    this.fbSubs.push(this.exerciseCollection
       .snapshotChanges()
       .pipe(
-        map(docArray => {
-          return docArray.map(doc => {
+        map(actions => {
+          return actions.map(doc => {
+            const data = doc.payload.doc.data() as Exercise;
             return {
               id: doc.payload.doc.id,
-              name: doc.payload.doc.data()['name'],
-              duration: doc.payload.doc.data()['duration'],
-              calories: doc.payload.doc.data()['calories']
+              ...data
             };
           });
         }))
       .subscribe((exercises: Exercise[]) => {
-          this.uiService.loadingStateChanged.next(false);
-          this.availableExercises = exercises;
-          this.exercisesChanged.next([...this.availableExercises]);
+        this.uiService.loadingStateChanged.next(false);
+        this.availableExercises = exercises;
+        this.exercisesChanged.next([...this.availableExercises]);
       }, error => {
         this.uiService.loadingStateChanged.next(false);
         this.uiService.showSnackbar('Fetching Exercises failed, please try to reload the application');
@@ -55,11 +53,13 @@ export class TrainingService {
       .pipe(
         map(changes => {
           return changes.map(a => {
-            const data = a.payload.doc.data() as any;
-            Object.keys(data).filter(key => data[key] instanceof Timestamp)
-              .forEach(key => data[key] = data[key].toDate());
-            data._id = a.payload.doc.id;
-            return data;
+            const data = a.payload.doc.data() as Exercise;
+            Object.keys(data).filter(key => key == "date")
+              .forEach(key =>  data[key] = data[key].toDate());
+            return {
+              id: a.payload.doc.id,
+              ...data
+            };
           });
         })
       )
