@@ -5,7 +5,6 @@ import { CurrentTrainingComponent } from './current-training/current-training.co
 import { NewTrainingComponent } from './new-training/new-training.component';
 import { PastTrainingsComponent } from './past-trainings/past-trainings.component';
 import { StopTrainingComponent } from './current-training/stop-training-component';
-import { NgpSortModule } from 'ngp-sort-pipe';
 import { SharedModule } from '../shared/shared.module';
 import { TrainingRoutingModule } from './training-routing.module';
 
@@ -19,7 +18,6 @@ import { TrainingRoutingModule } from './training-routing.module';
   imports: [
     SharedModule,
     ReactiveFormsModule,
-    NgpSortModule,
     TrainingRoutingModule
   ],
   entryComponents: [StopTrainingComponent]

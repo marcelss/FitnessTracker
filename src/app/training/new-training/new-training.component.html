@@ -5,7 +5,7 @@
             <mat-card-content fxLayoutAlign="center">
                 <mat-form-field *ngIf="!isLoading && exercises.length > 0">
                     <mat-select placeholder="Choose Exercise" ngModel name="exerciseId" required>
-                        <mat-option *ngFor="let exercise of exercises | sortBy:'asc':'name'" [value]="exercise.id">
+                        <mat-option *ngFor="let exercise of exercises" [value]="exercise.id">
                             {{exercise.name}}
                         </mat-option>
                     </mat-select>
