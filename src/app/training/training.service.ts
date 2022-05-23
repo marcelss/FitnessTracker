@@ -54,8 +54,8 @@ export class TrainingService {
         map(changes => {
           return changes.map(a => {
             const data = a.payload.doc.data() as Exercise;
-            Object.keys(data).filter(key => key == "date")
-              .forEach(key =>  data[key] = data[key].toDate());
+            Object.keys(data).filter(key => data[key].constructor.name === 't')
+              .forEach(key => data[key] = data[key].toDate());
             return {
               id: a.payload.doc.id,
               ...data
