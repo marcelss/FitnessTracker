@@ -3,7 +3,8 @@ import { TrainingService } from '../training.service';
 import { Exercise } from '../exercise.model';
 import { NgForm } from '@angular/forms';
 import { Observable, Subscription } from 'rxjs';
-import { UIService } from 'src/app/shared/ui.service';
+import { Store } from '@ngrx/store';
+import * as fromRoot from '../../app.reducer';
 
 export interface Food {
   value: string;
@@ -16,15 +17,14 @@ export interface Food {
 })
 export class NewTrainingComponent implements OnInit, OnDestroy {
   exercises: Exercise[] = [];
-  isLoading = true;
+  isLoading$ : Observable<boolean>;
   private exerciseSubscription: Subscription;
-  private loadingSubscription: Subscription;
-  constructor(private trainingService: TrainingService, private uiService: UIService) { }
+  constructor(
+    private trainingService: TrainingService, 
+    private store: Store<fromRoot.State>) { }
 
   ngOnInit() {
-    this.loadingSubscription = this.uiService.loadingStateChanged.subscribe(isLoading =>
-      this.isLoading = isLoading
-    );
+    this.isLoading$ = this.store.select(fromRoot.getIsLoading);
     this.exerciseSubscription = this.trainingService.exercisesChanged.subscribe(exercises =>
       this.exercises = exercises
     );
@@ -38,8 +38,5 @@ export class NewTrainingComponent implements OnInit, OnDestroy {
   ngOnDestroy(): void {
     if (this.exerciseSubscription)
       this.exerciseSubscription.unsubscribe();
-    
-    if (this.loadingSubscription)
-      this.loadingSubscription.unsubscribe();    
   }
 }

@@ -1,3 +1,7 @@
-form {
+signup-form {
+    height: 100%;
+}
+
+mat-form-field {
     width: 300px;
 }

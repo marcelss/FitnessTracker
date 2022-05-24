@@ -25,6 +25,9 @@ import { environment } from '../environments/environment';
 import { UIService } from './shared/ui.service';
 import { AngularFireModule } from '@angular/fire';
 import { AngularFirestoreModule } from '@angular/fire/firestore';
+import { StoreModule } from '@ngrx/store';
+import { reducers } from './app.reducer';
+import { reduce } from 'rxjs/operators';
 
 @NgModule({
   declarations: [
@@ -46,6 +49,7 @@ import { AngularFirestoreModule } from '@angular/fire/firestore';
     FlexLayoutModule,
     AngularFirestoreModule,
     AngularFireModule.initializeApp(environment.firebase),
+    StoreModule.forRoot(reducers)
   ],
   providers: [AuthService, ScreenSizeDetectorService, TrainingService, UIService],
   bootstrap: [AppComponent],

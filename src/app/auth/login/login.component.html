@@ -1,5 +1,5 @@
 <section class="login-form" fxLayoutAlign="center center" fxFlexFill>
-    <form [formGroup]="loginForm" fxLayout="column" fxLayoutGap="10px" fxLayoutAlign="center stretch" (ngSubmit)="onSubmit()">
+    <form [formGroup]="loginForm" fxLayout="column" fxLayoutGap="10px" fxLayoutAlign="center center" (ngSubmit)="onSubmit()">
         <mat-form-field>
             <input type="email" matInput placeholder="Email" autocomplete="off" ngModel name="email" formControlName="email" />
             <mat-hint>Insira um email válido!</mat-hint>
@@ -10,7 +10,7 @@
             <mat-hint>Insira sua senha.</mat-hint>
             <mat-error>Senha invalida ou não inserida!</mat-error>
         </mat-form-field>
-        <button *ngIf="!isLoading" type="submit" mat-raised-button color="primary" [disabled]="loginForm.invalid">Submit</button>
+        <button *ngIf="!(isLoading$ | async)" type="submit" mat-raised-button color="primary" [disabled]="loginForm.invalid">Submit</button>
+        <mat-spinner fxLayoutAlign="center center" *ngIf="isLoading$ | async"></mat-spinner>
     </form>
-    <mat-spinner fxLayoutAlign="center center" *ngIf="isLoading"></mat-spinner>
 </section>

@@ -1,5 +1,5 @@
 <section class="signup-form" fxLayoutAlign="center center" fxFlexFill>
-    <form #f="ngForm" fxLayout="column" fxLayoutGap="10px" fxLayoutAlign="center stretch" (ngSubmit)="onSubmit(f)">
+    <form #f="ngForm" fxLayout="column" fxLayoutGap="10px" fxLayoutAlign="center center" (ngSubmit)="onSubmit(f)">
         <mat-form-field>
             <input type="email" matInput placeholder="Email" autocomplete="off" ngModel name="email" email required #emailInput="ngModel" />
             <mat-hint align="end"></mat-hint>
@@ -17,7 +17,7 @@
             <mat-datepicker #signupDatepicker></mat-datepicker>
         </mat-form-field>
         <mat-checkbox ngModel name="agree" required color="primary">Concordo com os Termos e Condições</mat-checkbox>
-        <button *ngIf="!isLoading" type="submit" mat-raised-button color="primary" [disabled]="f.invalid">Submit</button>
-        <mat-spinner fxLayoutAlign="center" *ngIf="isLoading"></mat-spinner>
+        <button *ngIf="!(isLoading$ | async)" type="submit" mat-raised-button color="primary" [disabled]="f.invalid">Submit</button>
+        <mat-spinner *ngIf="isLoading$ | async"></mat-spinner>
     </form>
 </section>
